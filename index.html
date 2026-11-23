@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тест скорости и динамики реакции для киберспортсменов и тренеров.">
+  <title>Reaction Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <main>
+    <div id="main-screen" class="page">
+      <header class="intro">
+        <h1>Reaction <span>Test</span></h1>
+        <p>Тест скорости реакции для киберспортсменов и тренеров. Показывает, как меняется время реакции в течение одной сессии.</p>
+      </header>
+
+      <section class="instructions panel" aria-labelledby="instructions-title">
+        <div>
+          <h2 id="instructions-title">Как проходит тест</h2>
+          <ol>
+            <li>Нажмите «Начать тест» на главном экране, а затем ещё раз в полноэкранном режиме.</li>
+            <li>В течение 60 секунд нажимайте на цели сразу, как только они появляются.</li>
+            <li>Дождитесь окончания сессии. Приложение вернёт вас на главный экран.</li>
+          </ol>
+          <p>Выход из полноэкранного режима, скрытие вкладки или изменение размера окна сразу прерывает активный тест.</p>
+        </div>
+        <div class="start">
+          <button id="start-test" type="button" disabled aria-describedby="start-status">Начать тест</button>
+          <p id="start-status" role="status"></p>
+        </div>
+      </section>
+
+      <section class="panel results" aria-labelledby="results-title">
+        <h2 id="results-title">Результаты</h2>
+        <button id="return-result" class="history-action" type="button" hidden>К текущему результату</button>
+        <p id="result-date" hidden></p>
+        <p id="session-result" tabindex="-1">Здесь будет показан итог сессии.</p>
+        <dl id="result-metrics" class="result-metrics" hidden></dl>
+        <figure id="reaction-figure" hidden>
+          <figcaption>Индивидуальные реакции</figcaption>
+          <div class="chart-controls" aria-describedby="reaction-scale-note">
+            <label for="reaction-scale">Масштаб оси Y</label>
+            <select id="reaction-scale">
+              <option value="all" selected>Все значения</option>
+              <option value="detail">Детальный масштаб</option>
+            </select>
+            <div id="reaction-limit-control" hidden>
+              <label for="reaction-limit">Верхняя граница</label>
+              <select id="reaction-limit">
+                <option value="1000">1 000 мс</option>
+                <option value="2000" selected>2 000 мс</option>
+                <option value="5000">5 000 мс</option>
+              </select>
+            </div>
+          </div>
+          <p id="reaction-scale-note" hidden>Детальный масштаб меняет только график. Треугольники отмечают реакции выше выбранной границы. Все реакции учитываются в расчётах.</p>
+          <div id="reaction-chart" class="chart-scroll"></div>
+        </figure>
+        <figure id="period-figure" hidden>
+          <figcaption>Средняя реакция по периодам</figcaption>
+          <div id="period-chart" class="period-chart"></div>
+          <p>Меньшее время реакции означает более быстрый ответ.</p>
+        </figure>
+      </section>
+      <section class="panel" aria-labelledby="history-title">
+        <h2 id="history-title" tabindex="-1">История сессий</h2>
+        <p id="history-status" role="status">Сохранённых сессий пока нет</p>
+        <ul id="history-list" class="history-list" hidden></ul>
+      </section>
+    </div>
+
+    <section id="test-session" class="session" aria-label="Экран тестирования" hidden>
+      <dl class="metrics">
+        <div>
+          <dt>Осталось времени</dt>
+          <dd id="time-remaining">60 с</dd>
+        </div>
+        <div>
+          <dt>Попадания</dt>
+          <dd id="hit-count">0</dd>
+        </div>
+      </dl>
+      <div id="play-area" class="arena" role="region" aria-label="Игровая область">
+        <div id="test-preparation" class="preparation" hidden>
+          <div class="start">
+            <button id="begin-session" type="button">Начать тест</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
